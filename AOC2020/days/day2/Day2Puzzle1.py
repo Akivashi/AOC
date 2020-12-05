@@ -7,17 +7,17 @@ class Day2Puzzle1(object):
     self.puzzle = 1
 
   def solution(self, inputfile):
-    policy = re.compile("(\d*)-(\d*) ([a-z]): ([a-z]*)\n")
+    policy_rule = re.compile("(\d*)-(\d*) ([a-z]): ([a-z]*)\n")
     valid_count = 0
     with open(inputfile,"r") as file:
       lines = file.readlines()
     for line in lines:
-      g = policy.search(line)
-      if g:
-        lower = int(g.group(1))
-        upper = int(g.group(2))
-        letter = g.group(3)
-        password = g.group(4)
+      password_line = policy_rule.search(line)
+      if password_line:
+        lower = int(password_line.group(1))
+        upper = int(password_line.group(2))
+        letter = password_line.group(3)
+        password = password_line.group(4)
         letter_count = password.count(letter)
         if letter_count >= lower and letter_count <= upper:
           valid_count += 1
