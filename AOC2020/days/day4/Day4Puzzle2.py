@@ -23,23 +23,25 @@ def validate(passport):
       continue
     else:
       return 0
-  byr = int(passport.get('byr'))
-  iyr = int(passport.get('iyr'))
-  eyr = int(passport.get('eyr'))
-  hgt = passport.get('hgt')
-  hcl = passport.get('hcl')
-  ecl = passport.get('ecl')
-  pid = passport.get('pid')
-  if(byr >= 1920 and byr <=2002 and
-     iyr >= 2010 and iyr <=2020 and
-     eyr >= 2020 and eyr <=2030 and
-     validate_hgt(hgt) and
-     validate_hcl(hcl) and
-     validate_ecl(ecl) and
-     validate_pid(pid)):
+  if(validate_byr(int(passport.get('byr'))) and
+     validate_iyr(int(passport.get('iyr'))) and
+     validate_eyr(int(passport.get('eyr'))) and
+     validate_hgt(passport.get('hgt')) and
+     validate_hcl(passport.get('hcl')) and
+     validate_ecl(passport.get('ecl')) and
+     validate_pid(passport.get('pid'))):
     return 1
   else:
     return 0
+
+def validate_byr(byr):
+  return byr >= 1920 and byr <=2002
+
+def validate_iyr(iyr):
+  return iyr >= 2010 and iyr <=2020
+
+def validate_eyr(eyr):
+  return eyr >= 2020 and eyr <=2030
 
 def validate_hgt(hgt):
   rule = re.compile("(\d*)(cm|in)")
