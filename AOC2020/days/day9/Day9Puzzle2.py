@@ -7,10 +7,17 @@ class Day9Puzzle2(object):
 
   def solution(self, inputfile):
     with open(inputfile,"r") as file:
-      lines = file.readlines()
-    for line in lines:
-      print(line)
-    return 2
+      lines = file.read().splitlines()
+    xmas_data = [int(i) for i in lines]
+    target = 127
+
+    for index_start in range(0, len(xmas_data)):
+      for index_end in range(1, len(xmas_data)):
+        contiguous_set = xmas_data[index_start:index_end]
+        if(sum(contiguous_set) == target):
+          return(min(contiguous_set) + max(contiguous_set))
+
+    return -1
 
 def main():
   ap = argparse.ArgumentParser()

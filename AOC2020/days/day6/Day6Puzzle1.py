@@ -7,10 +7,22 @@ class Day6Puzzle1(object):
 
   def solution(self, inputfile):
     with open(inputfile,"r") as file:
-      lines = file.readlines()
-    for line in lines:
-      print(line)
-    return 2
+      lines = file.read().splitlines()
+    lines.append('')
+    unique_groupanswers = create_unique_groupanswers(lines)
+    return len(''.join(unique_groupanswers))
+
+def create_unique_groupanswers(lines):
+  unique_groupanswers = []
+  groupanswer_line = ''
+  for n in range(len(lines)):
+    line = lines[n].strip()
+    if line == '':
+      unique_groupanswers.append("".join(set(groupanswer_line)))
+      groupanswer_line = ''
+    else:
+      groupanswer_line += line
+  return unique_groupanswers
 
 def main():
   ap = argparse.ArgumentParser()
